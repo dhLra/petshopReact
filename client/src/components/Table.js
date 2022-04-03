@@ -1,17 +1,15 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios, * as others from "axios";
-import Edit from "./pages/Edit";
 
 const Table = (props) => {
 
   const navigate = useNavigate();
   const location = useLocation();
   const [petshopData, setPetshopData] = useState([]);
-  const [petData, setPetData] = useState();
 
   const onClicked = (id) => {
-    navigate(`${location.pathname}/${id}`);
+    navigate(`/editar/${id}`);
     /*navigate(`/${caminho}`)*/
   }
 

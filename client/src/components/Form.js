@@ -45,7 +45,7 @@ const Form = (props) => {
             <input id="endDono" defaultValue={props.endDono} type="text" name="endereco_dono" className="form-control" onChange={props.handleChangeValues} />
           </div>
         </div>
-        <button className="btn btn-success mt-3 me-2" onClick={() =>{props.onClicked('sucesso',1)}}>Enviar</button>
+        <button className="btn btn-success mt-3 me-2" onClick={() =>{props.onClicked()}}>Enviar</button>
         <button type="submit" className="btn btn-secondary mt-3" onClick={() => {props.onClicked('')}}>Cancelar</button>
       </form>
     </div>

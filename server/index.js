@@ -53,6 +53,56 @@ app.get("/consultar", (req, res) => {
   })
 })
 
+app.get("/editar/:id", (req, res) => {
+
+  const { id } = req.params;
+
+  let SQL = "SELECT * FROM pets WHERE id = ?";
+
+  db.query(SQL, [id],  (err, result) => {
+    if (err) {
+      console.log(err)
+    } else {
+      res.send(result);
+    }
+  })
+})
+
+app.put("", (req, res) => {
+  const { id } = req.body;
+  const { nome_pet } = req.body;
+  const { raca_pet } = req.body;
+  const { idade_pet } = req.body;
+  const { tipo_pet } = req.body;
+  const { nome_dono } = req.body;
+  const { telefone_dono } = req.body;
+  const { endereco_dono } = req.body;
+
+  let SQL = "UPDATE pets nome_pet = ?, raca_pet = ?, idaide_pet = ?, tipo_pet = ?, nome_dono = ?, telefone_dono = ?, endereco_dono = ? WHERE id = ?";
+
+
+  db.query(SQL, [nome_pet, raca_pet, idade_pet, tipo_pet, nome_dono, telefone_dono, endereco_dono, id], (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  })
+})
+
+app.delete("/excluir/:id", (req, res) => {
+  const { id } = req.params
+
+  let SQL = "DELETE FROM pets WHERE id = ?"
+
+  db.query(SQL, [id], (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  })
+})
 
 app.listen(3001, () => {
   console.log("Rodando server");
