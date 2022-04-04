@@ -1,32 +1,33 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios, * as others from "axios";
+import axios from "axios";
 
-const Table = (props) => {
+const Table = () => {
 
   const navigate = useNavigate();
-  const location = useLocation();
   const [petshopData, setPetshopData] = useState([]);
 
+  /* Função ativada quando algum botão é clicado*/
   const onClicked = (id, caminho) => {
+    /* Leva para a tela de edição baseado no id*/
     if (caminho == 'editar') {
       navigate(`/${caminho}/${id}`);
-      /*navigate(`/${caminho}`)*/
     } else {
+      /* Deleta o dado baseado no id passado*/
       axios.delete(`http://localhost:3001/excluido/${id}`);
       navigate(`/`);
     }
   }
 
-
+    /* Requisição para o server buscar todos os dados no BD */
   useEffect(() => {
     axios.get("http://localhost:3001/consultar").then((response) => {
       setPetshopData(response.data);
-      console.log(petshopData);
     });
   }, []);
 
   return (
+    /* Cabeçalho da tabela de consulta */
     <div className="container-form text-center mx-auto mt-0">
       <table className="table">
         <thead>
@@ -38,7 +39,7 @@ const Table = (props) => {
             <th scope="col">Opções</th>
           </tr>
         </thead>
-
+        {/*map para printar na tela dodos os regitros do banco de dados*/}
         {petshopData?.map((pets, i) =>
           <tr key={i}>
             <th scope="row">{pets.id}</th>
@@ -46,7 +47,7 @@ const Table = (props) => {
             <td>{pets.nome_dono}</td>
             <td>{pets.telefone_dono}</td>
             <button className="btn btn-primary" onClick={() => onClicked(pets.id, "editar")}>Editar</button>
-            <button className="btn btn-danger ms-3" type="submit" onClick={() => onClicked(pets.id," ")}>Excluir</button>
+            <button className="btn btn-danger ms-3" type="submit" onClick={() => onClicked(pets.id, " ")}>Excluir</button>
           </tr>
         )}
       </table>

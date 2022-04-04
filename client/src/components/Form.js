@@ -1,12 +1,15 @@
 const Form = (props) => {
 
   return (
+    /*Form utilizado em toda a aplicação*/
     <div className="container-form mx-auto mt-3">
       <form>
         <h3 className="text-center mb-3">SOBRE SEU PET</h3>
         <div className="row mb-3">
           <div className="col-4">
             <label htmlFor="exampleInputEmail1" className="form-label">Nome</label>
+            {/*defaultValue é utilizado para mostras os dados da consulta*/}
+            {/*Onchange é utilizado enviar os dados para o BD e atualizar o State na edição*/}
             <input id="nome_pet" defaultValue={props.nomePet} type="text" name="nome_pet"className="form-control" onChange={props.handleChangeValues} />
           </div>
           <div className="col-4">

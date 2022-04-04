@@ -1,8 +1,11 @@
+/*Dependencias da aplicação do servidor*/
+
 const express = require("express");
 const app = express();
 const mysql = require("mysql");
 const cors = require("cors");
 
+/* Configuração de conexão*/
 const db = mysql.createPool({
   host: "localhost",
   user: "root",
@@ -10,19 +13,11 @@ const db = mysql.createPool({
   database: "petshop"
 });
 
-/*
-app.get("/", (req,res) =>{
-  let SQL = "INSERT INTO pets (nome_pet, raca_pet, idade_pet ,tipo_pet, nome_dono, telefone_dono, endereco_dono) VALUES ('bob', 'pinxer', '120', 'cachorro', 'vera', '8181', 'testeend')";
-
-  db.query(SQL, (err, result) =>{
-    console.log(err);
-  })
-});
-*/
-
+/*Passando dados do front para o back */
 app.use(cors());
 app.use(express.json());
 
+/* Serviço de envio de dados*/
 app.post("/sucesso", (req, res) => {
   const { nome_pet } = req.body;
   const { raca_pet } = req.body;
@@ -40,6 +35,7 @@ app.post("/sucesso", (req, res) => {
   });
 });
 
+/* Serviço de consulta geral de dados*/
 app.get("/consultar", (req, res) => {
 
   let SQL = "SELECT * FROM pets";
@@ -53,6 +49,7 @@ app.get("/consultar", (req, res) => {
   })
 })
 
+/* Serviço de consulta especifica pelo id*/
 app.get("/editar/:id", (req, res) => {
 
   const { id } = req.params;
@@ -68,6 +65,7 @@ app.get("/editar/:id", (req, res) => {
   })
 })
 
+/* Serviço de edição especifica pelo id*/
 app.put("/editado", (req, res) => {
 
   const { id } = req.body;
@@ -99,6 +97,7 @@ app.put("/editado", (req, res) => {
   })
 })
 
+/* Serviço de exclusão pelo id*/
 app.delete("/excluido/:id", (req, res) => {
   const { id } = req.params
 
@@ -113,6 +112,7 @@ app.delete("/excluido/:id", (req, res) => {
   })
 })
 
+/*Configurando porta da aplicação */
 app.listen(3001, () => {
   console.log("Rodando server");
 });

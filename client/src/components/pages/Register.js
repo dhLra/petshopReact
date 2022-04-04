@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios, * as others from "axios";
+import axios from "axios";
 
 import Form from "../Form"
 
@@ -8,9 +8,11 @@ const Register = () => {
 
   const navigate = useNavigate();
   const [values, setValues] = useState();
-
+  /*Função que manda o novo registro para o banco de dados*/
   const onClicked = (acao, caminho) => {
+    /*Botão Enviar é acionado*/
     if (acao == "enviar") {
+      /*Requisição que envia o registro*/
       axios.post("http://localhost:3001/sucesso", {
         nome_pet: values.nome_pet,
         raca_pet: values.raca_pet,
@@ -23,11 +25,14 @@ const Register = () => {
         console.log(response);
         navigate(`/${caminho}`);
       });
+      /*Botão Cancelar é acionado*/
     } else {
+      /*Navega para a tela inicial*/
       navigate(`/`);
     }
   }
 
+  /*Atualiza o estado da variavel e monta o objeto*/
   const handleChangeValues = (value) => {
     setValues(prevValues => ({
       ...prevValues,
