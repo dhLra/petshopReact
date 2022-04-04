@@ -8,9 +8,13 @@ const Table = (props) => {
   const location = useLocation();
   const [petshopData, setPetshopData] = useState([]);
 
-  const onClicked = (id) => {
-    navigate(`/editar/${id}`);
-    /*navigate(`/${caminho}`)*/
+  const onClicked = (id, caminho) => {
+    if (caminho == 'editar') {
+      navigate(`/${caminho}/${id}`);
+      /*navigate(`/${caminho}`)*/
+    } else {
+      navigate(`/`);
+    }
   }
 
 
@@ -29,17 +33,20 @@ const Table = (props) => {
             <th scope="col">ID</th>
             <th scope="col">Nome do Pet</th>
             <th scope="col">Nome do Dono</th>
+            <th scope="col">Telefone do Dono</th>
             <th scope="col">Opções</th>
           </tr>
         </thead>
 
         {petshopData?.map((pets, i) =>
-            <tr key={i}>
-              <th scope="row">{pets.id}</th>
-              <td>{pets.nome_pet}</td>
-              <td>{pets.nome_dono}</td>
-              <button className={props.type} onClick={() => onClicked(pets.id)}>{props.button}</button>
-            </tr>
+          <tr key={i}>
+            <th scope="row">{pets.id}</th>
+            <td>{pets.nome_pet}</td>
+            <td>{pets.nome_dono}</td>
+            <td>{pets.telefone_dono}</td>
+            <button className="btn btn-primary" onClick={() => onClicked(pets.id, "editar")}>Editar</button>
+            <button className="btn btn-danger ms-3" onClick={() => axios.delete(`http://localhost:3001/excluido/${pets.id}`)}>Excluir</button>
+          </tr>
         )}
       </table>
       <div className="text-end">

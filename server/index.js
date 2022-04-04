@@ -68,7 +68,8 @@ app.get("/editar/:id", (req, res) => {
   })
 })
 
-app.put("", (req, res) => {
+app.put("/editado", (req, res) => {
+
   const { id } = req.body;
   const { nome_pet } = req.body;
   const { raca_pet } = req.body;
@@ -78,7 +79,7 @@ app.put("", (req, res) => {
   const { telefone_dono } = req.body;
   const { endereco_dono } = req.body;
 
-  let SQL = "UPDATE pets nome_pet = ?, raca_pet = ?, idaide_pet = ?, tipo_pet = ?, nome_dono = ?, telefone_dono = ?, endereco_dono = ? WHERE id = ?";
+  let SQL = 'UPDATE `pets` SET `nome_pet` = ?, `raca_pet` = ?, `idade_pet` = ?, `tipo_pet` = ?, `nome_dono` = ?, `telefone_dono` = ?, `endereco_dono` = ? WHERE `id` = ?';
 
 
   db.query(SQL, [nome_pet, raca_pet, idade_pet, tipo_pet, nome_dono, telefone_dono, endereco_dono, id], (err, result) => {
@@ -86,11 +87,19 @@ app.put("", (req, res) => {
       console.log(err);
     } else {
       res.send(result);
+      console.log(id)
+      console.log(nome_dono)
+      console.log(raca_pet)
+      console.log(idade_pet)
+      console.log(tipo_pet)
+      console.log(nome_dono)
+      console.log(telefone_dono)
+      console.log(endereco_dono)
     }
   })
 })
 
-app.delete("/excluir/:id", (req, res) => {
+app.delete("/excluido/:id", (req, res) => {
   const { id } = req.params
 
   let SQL = "DELETE FROM pets WHERE id = ?"

@@ -29,7 +29,10 @@ function App() {
           <Route path=":id" element={<Edit/>} />
         </Route>
         
-        <Route path="/excluir" element={<Exclusion />} />
+        <Route path="/excluir">
+          <Route path=":id" element={<Exclusion/>} />
+        </Route>
+
         <Route path="/editar" element={<Edit />} />
 
       </Routes>

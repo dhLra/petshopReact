@@ -1,51 +1,50 @@
+import React from "react";
 import Form from "../Form";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios, * as others from "axios";
 
 
 const Edit = () => {
 
   const { id } = useParams();
+  const [petshopData, setPetshopData] = useState([]);
+  const [editValues, setEditValues] = useState([]);
 
   useEffect(() => {
     axios.get(`http://localhost:3001/editar/${id}`).then((response) => {
+      setEditValues(response.data);
       setPetshopData(response.data);
     });
   }, []);
 
   const navigate = useNavigate;
-  const [petshopData, setPetshopData] = useState([]);
-  const petData = (petshopData.filter(p => p.id == id));
-  const [editValues, setEditValues] = useState({
-    id: petshopData.id,
-    nome_pet: petData.nome_dono,
-    raca_pet: petData.raca_pet,
-    idade_pet: petData.idade_pet,
-    tipo_pet: petData.tipo_pet,
-    nome_dono: petData.nome_dono,
-    telefone_dono: petData.telefone_dono,
-    endereco_dono: petData.endereco_dono
-  });
 
   const handleChangeValues = (value) => {
     setEditValues(prevValues => ({
       ...prevValues,
-      [value.target.nome]: value.target.value,
+      [value.target.id]: value.target.value,
     }));
-  }
-  const onClicked = () => {
-    console.log(petshopData)
-    axios.put(`http://localhost:3001/editar`, {
-      id: editValues.id,
-      nome_pet: editValues.nome_dono,
-      raca_pet: editValues.raca_pet,
-      idade_pet: editValues.idade_pet,
-      tipo_pet: editValues.tipo_pet,
-      nome_dono:editValues.nome_dono,
-      telefone_dono: editValues.telefone_dono,
-      endereco_dono: editValues.endereco_dono
-    })
+  };
+
+  const onClicked = (acao , caminho) => {
+    if (acao == "enviar") {
+      axios.put(`http://localhost:3001/editado`, {
+        id: id,
+        nome_pet: editValues.nome_pet,
+        raca_pet: editValues.raca_pet,
+        idade_pet: editValues.idade_pet,
+        tipo_pet: editValues.tipo_pet,
+        nome_dono: editValues.nome_dono,
+        telefone_dono: editValues.telefone_dono,
+        endereco_dono: editValues.endereco_dono
+      }).then((response) => {
+        console.log(response);
+        navigate(`/${caminho}`);
+      });
+    } else {
+      navigate(`/`);
+    }
   }
 
   return (
