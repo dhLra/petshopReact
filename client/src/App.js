@@ -36,7 +36,6 @@ function App() {
         <Route path="/editar" element={<Edit />} />
 
       </Routes>
-      <Footer />
     </BrowserRouter>
   );
 }

@@ -13,6 +13,7 @@ const Table = (props) => {
       navigate(`/${caminho}/${id}`);
       /*navigate(`/${caminho}`)*/
     } else {
+      axios.delete(`http://localhost:3001/excluido/${id}`);
       navigate(`/`);
     }
   }
@@ -45,7 +46,7 @@ const Table = (props) => {
             <td>{pets.nome_dono}</td>
             <td>{pets.telefone_dono}</td>
             <button className="btn btn-primary" onClick={() => onClicked(pets.id, "editar")}>Editar</button>
-            <button className="btn btn-danger ms-3" onClick={() => axios.delete(`http://localhost:3001/excluido/${pets.id}`)}>Excluir</button>
+            <button className="btn btn-danger ms-3" type="submit" onClick={() => onClicked(pets.id," ")}>Excluir</button>
           </tr>
         )}
       </table>
