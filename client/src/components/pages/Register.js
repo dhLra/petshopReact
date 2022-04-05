@@ -9,7 +9,7 @@ const Register = () => {
   const navigate = useNavigate();
   const [values, setValues] = useState();
   /*Função que manda o novo registro para o banco de dados*/
-  const onClicked = (acao, caminho) => {
+  const onClicked = (acao) => {
     /*Botão Enviar é acionado*/
     if (acao == "enviar") {
       /*Requisição que envia o registro*/
@@ -23,8 +23,8 @@ const Register = () => {
         endereco_dono: values.endereco_dono,
       }).then((response) => {
         console.log(response);
-        navigate(`/${caminho}`);
       });
+      navigate(`/`);
       /*Botão Cancelar é acionado*/
     } else {
       /*Navega para a tela inicial*/
